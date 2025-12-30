@@ -41,7 +41,7 @@ print("lets learn all fs commands options...")
 print("copying")
 dbutils.fs.cp("/Volumes/workspace/default/volumewd36/sample_healthcare_patients.csv","/Volumes/workspace/default/volumewd36/sample_healthcare_patients1.csv")
 print("head of 10 rows")
-print(dbutils.fs.head("/Volumes/workspace/default/volumewd36/sample_healthcare_patients1.csv"))
+print(dbutils.fs.head("/Volumes/workspace/default/volumewd36/raw/Sample_Healthcare_data.csv"))
 print("listing")
 dbutils.fs.ls("/Volumes/workspace/default/volumewd36/")
 print("make directory")
@@ -54,13 +54,32 @@ print("put to write some data into a file")
 
 # COMMAND ----------
 
+print("head of 10 rows")
+print(dbutils.fs.head("/Volumes/workspace/default/volumewd36/raw/Sample_Healthcare_data.csv"))
+print("listing")
+
+# COMMAND ----------
+
 print("try below command without the 3rd argument of true, you will find the dbfs-> hadoop -> spark -> s3 bucket")
 #dbutils.fs.put("dbfs:///Volumes/workspace/default/volumewd36/sample_healthcare_patients1.csv","put something",False)
-print(dbutils.fs.head("/Volumes/workspace/default/volumewd36/sample_healthcare_patients1.csv"))
+print(dbutils.fs.head("/Volumes/workspace/default/volumewd36/raw/Sample_Healthcare_data.csv"))
 dbutils.fs.put("dbfs:///Volumes/workspace/default/volumewd36/sample_healthcare_patients1.csv","put something",True)
 print("see the data in the file")
 print(dbutils.fs.head("/Volumes/workspace/default/volumewd36/sample_healthcare_patients1.csv"))
 dbutils.fs.rm("/Volumes/workspace/default/volumewd36/healthcare/sample_healthcare_patients1.csv")
+
+# COMMAND ----------
+
+dbutils.fs.put("dbfs:///Volumes/workspace/default/volumewd36/raw/Sample_Healthcare_data.csv","put something",True)
+print("see the data in the file")
+
+# COMMAND ----------
+
+print(dbutils.fs.head("/Volumes/workspace/default/volumewd36/raw/Sample_Healthcare_data.csv"))
+
+# COMMAND ----------
+
+dbutils.fs.rm("/Volumes/workspace/default/volumewd36/raw/Sample_Healthcare_data.csv")
 
 # COMMAND ----------
 
@@ -121,7 +140,7 @@ for i in all_batches_lst:
 #Interview question- how to access some value from the given string
 fullname="mohamed kader irfan"
 fname=fullname.split(" ")[0]
-lname=fullname.split(" ")[-1]
+lname=fullname.split(" ")[2]
 print(fname, 'and', lname)
 
 # COMMAND ----------
@@ -168,20 +187,38 @@ print(dict_all_widgets)
 
 # COMMAND ----------
 
-child_return_value=dbutils.notebook.run("/Workspace/Users/infoblisstech@gmail.com/databricks-code-repo/databricks_workouts_2025/1_DATABRICKS_NOTEBOOK_FUNDAMENTALS/4_child_notebook", 180,{"table_name":"cities1"})
+child_return_value=dbutils.notebook.run("/Workspace/Users/vplrsb@gmail.com/databricksrepo/4_child_notebook", 180,{"table_name":"cities"})
 
 # COMMAND ----------
 
 if True:
-    dbutils.notebook.run("/Workspace/Users/infoblisstech@gmail.com/databricks-code-repo/databricks_workouts_2025/1_DATABRICKS_NOTEBOOK_FUNDAMENTALS/4_child_notebook",600)
+    dbutils.notebook.run("/Workspace/Users/vplrsb@gmail.com/databricksrepo/4_child_notebook",600,{"table_name":"cities"})
 else:
-    dbutils.notebook.run("/Workspace/Users/infoblisstech@gmail.com/databricks-code-repo/databricks_workouts_2025/1_DATABRICKS_NOTEBOOK_FUNDAMENTALS/4_child_notebook",300)
+    dbutils.notebook.run("/Workspace/Users/vplrsb@gmail.com/databricksrepo/4_child_notebook",300,{"table_name":"cities"})
+
+# COMMAND ----------
+
+try:
+    if True:
+        result = dbutils.notebook.run(
+            "/Workspace/Users/vplrsb@gmail.com/databricksrepo/4_child_notebook",
+            600
+        )
+    else:
+        result = dbutils.notebook.run(
+            "/Workspace/Users/vplrsb@gmail.com/databricksrepo/4_child_notebook",
+            300
+        )
+    print(result)
+except Exception as e:
+    print("Notebook execution failed. Details:")
+    print(e)
 
 # COMMAND ----------
 
 import time
 for i in range(13):
-    dbutils.notebook.run("/Workspace/Users/infoblisstech@gmail.com/databricks-code-repo/databricks_workouts_2025/1_DATABRICKS_NOTEBOOK_FUNDAMENTALS/4_child_notebook",300)
+    dbutils.notebook.run("/Workspace/Users/vplrsb@gmail.com/databricksrepo/4_child_notebook",300,{"table_name":"cities"})
     time.sleep(10)
 
 # COMMAND ----------
